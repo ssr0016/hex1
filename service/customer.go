@@ -8,5 +8,5 @@ type CustomerResponse struct {
 
 type CustomerService interface {
 	GetCustomers() ([]CustomerResponse, error)
-	GetCustomer(id int) (*CustomerResponse, error)
+	GetCustomer(int) (*CustomerResponse, error)
 }

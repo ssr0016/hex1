@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -23,9 +22,7 @@ func NewCustomerHandler(custSvc service.CustomerService) customerHandler {
 func (h customerHandler) GetCustomers(w http.ResponseWriter, r *http.Request) {
 	customers, err := h.custSvc.GetCustomers()
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, err)
-		return
+		handleError(w, err)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -37,9 +34,7 @@ func (h customerHandler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 
 	customer, err := h.custSvc.GetCustomer(customerID)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, err)
-		return
+		handleError(w, err)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
